@@ -1,6 +1,7 @@
 package com.game.kokia.imoocbaseadapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +17,11 @@ import java.util.List;
 
 public class MyAdapter extends BaseAdapter {
 
+    // 映射数据
     private List<ItemBean> mList;
     private LayoutInflater mInflater;
+
+    private long mSumTime;
 
     // 通过构造方法，将数据源与数据适配器进行关联；
     public MyAdapter(Context context, List<ItemBean> list) {
@@ -61,7 +65,7 @@ public class MyAdapter extends BaseAdapter {
         title.setText(bean.ItemTitle);
         content.setText(bean.ItemContent);
 
-        return view; */
+        return view;*/
         // 逗比式===============================
 
 
@@ -84,8 +88,10 @@ public class MyAdapter extends BaseAdapter {
         // 普通式===============================
 
         // 文艺式===============================
+        long start = System.nanoTime();
+
         ViewHolder viewHolder;
-        if (convertView = null) {
+        if (convertView == null) {
             convertView = mInflater.inflate(R.layout.item, null);
             viewHolder = new ViewHolder();
 
@@ -103,10 +109,17 @@ public class MyAdapter extends BaseAdapter {
         viewHolder.title.setText(bean.ItemTitle);
         viewHolder.content.setText(bean.ItemContent);
 
+        long end = System.nanoTime();
+        long dValue = end - start;
+        mSumTime += dValue;
+
+        Log.d("xys", String.valueOf(mSumTime));
+
+        return  convertView;
         // 文艺式===============================
     }
 
-    // 避免重复的findViewById
+    // ViewHolder用于缓存控件，避免重复的findViewById
     class ViewHolder {
         public ImageView imageView;
         public TextView title;
